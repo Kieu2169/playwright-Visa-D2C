@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { Auth } from '../../utils/auth';
+import { loginBeforeTest } from '../../utils/testSetup';
 import { DeleteAccountPage } from '../../pages/DeleteAccountPage';
 import { GmailService } from '../../pages/GmailService';
 
@@ -8,15 +8,11 @@ test.setTimeout(50000);
 test('Delete Visa Account', async ({ browser }) => {
   const page = await browser.newPage();
 
-  const auth = new Auth(page);
   const deleteAcc = new DeleteAccountPage(page);
   const gmail = new GmailService();
 
-  // 🔐 LOGIN FIRST (REQUIRED BEFORE DELETE)
-  await auth.login(
-    'vokieu060921@gmail.com',
-    'Kieu@12345678'
-  );
+  // ✅ LOGIN REUSE
+  await loginBeforeTest(page);
 
   console.log('Login success');
 

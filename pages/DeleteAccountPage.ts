@@ -4,8 +4,18 @@ export class DeleteAccountPage {
   constructor(private page: Page) {}
 async open() {
   await this.page.goto(
-    'https://visa-d2c.urbox.dev/sg_en/category/dining/beyond-the-menu',
+    'https://visa-d2c.urbox.dev/sg_en',
     { waitUntil: 'domcontentloaded' }
+  );
+
+  await this.page.addLocatorHandler(
+    this.page.locator('#CookieReportsBanner'),
+    async (banner) => {
+      await banner
+        .locator('button:has-text("Accept")')
+        .click()
+        .catch(() => {});
+    }
   );
 
   await this.page.waitForLoadState('networkidle');
@@ -17,7 +27,7 @@ async open() {
   // 🔥 WAIT FOR AUTH UI READY (IMPORTANT)
   const icon = this.page.locator('.icon-wrap').first();
 
-  await icon.waitFor({ state: 'visible', timeout: 20000 });
+  await icon.waitFor({ state: 'visible', timeout: 10000 });
 
   await icon.click();
 
