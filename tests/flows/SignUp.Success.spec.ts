@@ -29,6 +29,8 @@ test('Create Visa Account', async ({ browser }) => {
   console.log('Verify OTP');
   await register.verifyOtp(otp);
 
+  await register.expectPasswordPage();
+
   await register.createPassword('Kieu@12345678');
 
   await register.fillProfile();

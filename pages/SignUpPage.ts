@@ -35,19 +35,21 @@ export class RegisterPage {
 
   async verifyOtp(otp: string) {
   await this.page
-    .getByRole('textbox', {
-      name: 'OTP digit 1 of 6',
-    })
+    .getByRole('textbox', { name: 'OTP digit 1 of 6' })
     .fill(otp);
 
-  await this.page
-    .getByRole('button', {
-      name: 'Verify',
-    })
-    .click();
+  const verifyBtn = this.page.getByRole('button', { name: 'Verify' });
+
+  await expect(verifyBtn).toBeVisible();
+  await expect(verifyBtn).toBeEnabled();
+
+  await verifyBtn.click();
+
 
     // ✅ IMPORTANT: wait UI transition after OTP
   await this.page.waitForLoadState('networkidle');
+
+  
 
   // OPTIONAL: ensure Continue button stable
   const finalContinueBtn = this.page
@@ -60,8 +62,23 @@ export class RegisterPage {
 
   await finalContinueBtn.click();
   }
+ // ✅SUCCESS FLOW CHECK
 
-  
+async expectPasswordPage() {
+  await expect(
+    this.page.locator('#password')
+  ).toBeVisible();
+}
+// ❌ ERROR FLOW CHECK
+async submitInvalidOtp(otp: string) {
+  await this.page
+    .getByRole('textbox', { name: 'OTP digit 1 of 6' })
+    .fill(otp);
+
+  await this.page
+    .getByRole('button', { name: 'Verify' })
+    .click();
+}
 
   async createPassword(password: string) {
     await this.page
