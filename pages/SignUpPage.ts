@@ -80,17 +80,17 @@ export class RegisterPage {
   }
 
   async fillProfile() {
-    await this.page
-      .getByRole('button', {
-        name: 'sg Singapore',
-      })
-      .click();
+    // await this.page
+    //   .getByRole('button', {
+    //     name: 'sg Singapore',
+    //   })
+    //   .click();
 
-    await this.page
-      .getByRole('button', {
-        name: 'au Australia',
-      })
-      .click();
+    // await this.page
+    //   .getByRole('button', {
+    //     name: 'au Australia',
+    //   })
+    //   .click();
 
     await this.page
       .getByRole('button', {

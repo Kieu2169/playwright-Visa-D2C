@@ -4,16 +4,28 @@ export class LoginPage {
   constructor(private page: Page) {}
 
   async open() {
-    await this.page.goto(
-      'https://visa-d2c.urbox.dev/sg_en/login'
-    );
+  await this.page.goto(
+    'https://visa-d2c.urbox.dev/sg_en/login'
+  );
 
-    const acceptBtn = this.page.getByRole('button', { name: 'Accept' });
+  const acceptBtn = this.page.getByRole(
+    'button',
+    { name: 'Accept' }
+  );
 
-if (await acceptBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
-  await acceptBtn.click();
-}
+  try {
+    await acceptBtn.waitFor({
+      state: 'visible',
+      timeout: 10000,
+    });
+
+    await acceptBtn.click();
+
+    await this.page.waitForTimeout(1000);
+  } catch {
+    console.log('Cookie banner not shown');
   }
+}
 
   async login(email: string, password: string) {
     await this.page
