@@ -3,10 +3,6 @@ import { Page, expect } from '@playwright/test';
 export class ContactUsPage {
   constructor(private page: Page) {}
 
-  // ========================
-  // USER SIDE (D2C)
-  // ========================
-
   async openContactUs() {
     await this.page.getByRole('link', { name: 'Contact us' }).click();
   }

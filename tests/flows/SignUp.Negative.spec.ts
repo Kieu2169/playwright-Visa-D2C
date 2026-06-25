@@ -9,7 +9,7 @@ test('Signup - card country mismatch', async ({ browser }) => {
   const page = await browser.newPage();
   const register = new RegisterPage(page);
 
-  const email = `vokieu060921+${Date.now()}@gmail.com`;
+  const email = `vokieu060921@gmail.com`;
 
   await register.open();
   await register.register(email);

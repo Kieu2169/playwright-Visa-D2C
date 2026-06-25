@@ -6,7 +6,6 @@ test.setTimeout(50000);
 test('Create Visa Account', async ({ browser }) => {
   const visaPage = await browser.newPage();
 
-
   const gmail = new GmailService();
   const register = new RegisterPage(visaPage);
 
