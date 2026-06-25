@@ -13,7 +13,7 @@ test.describe(
 
     const STEP_2_INPUT = process.env.STEP_2_INPUT || 'Add new card';
     const STEP_3_INPUT =
-      process.env.STEP_3_INPUT || '4006 1010 0000 1006';
+      process.env.STEP_3_INPUT || '4006 1010 0000 1010';
     const STEP_4_INPUT = process.env.STEP_4_INPUT || '11/30';
     const STEP_5_INPUT = process.env.STEP_5_INPUT || 'Continue';
 
@@ -170,7 +170,9 @@ test.describe(
       // Final Verification
       logger.info('Verifying add card result...');
 
-      await expect(page).toHaveURL(/visa-d2c|urbox/i);
+      await expect(
+        page.getByText(/great! your card has been added/i)
+      ).toBeVisible({ timeout: 10000 });
 
       logger.success('URL verification passed');
 
